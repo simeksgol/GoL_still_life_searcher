@@ -1172,17 +1172,25 @@ static __not_inline int main_do (int argc, const char *const *argv)
 	
 	if (cl_max_wanted_bit_cnt > MAX_BIT_CNT)
 	{
-		fprintf (stderr, "<max wanted on cells> may not be higher than %d\n", MAX_BIT_CNT);
+		fprintf (stderr, "<max on cells> may not be higher than %d\n", MAX_BIT_CNT);
 		return FALSE;
 	}
 	if (cl_min_wanted_bit_cnt > cl_max_wanted_bit_cnt)
 	{
-		fprintf (stderr, "<min wanted on cells> may not be higher than <max wanted on cells>\n");
+		fprintf (stderr, "<min on cells> may not be higher than <max on cells>\n");
 		return FALSE;
 	}
 	if (selected_subset >= SELECTED_SEARCH_SUBSETS)
 	{
 		fprintf (stderr, "<selected_subset> must be between 0 and %d\n", SELECTED_SEARCH_SUBSETS - 1);
+		return FALSE;
+	}
+	
+	printf ("subset = %d, min = %d\n", selected_subset, cl_min_wanted_bit_cnt);
+	
+	if (selected_subset >= 0 && cl_min_wanted_bit_cnt < TAG_SIZE + 10)
+	{
+		fprintf (stderr, "Searching for a subset is not supported if <min on cells> is lower than %d\n", TAG_SIZE + 10);
 		return FALSE;
 	}
 	
