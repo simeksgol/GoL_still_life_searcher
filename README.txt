@@ -1,14 +1,5 @@
 This program counts and creates databases for strict still lifes and pseudo still lifes in Conway's Game of Life
 
-Example: To create the databases for 19 bit still lifes use:
-
-> sc128 w 19 19
-
-This will create two files in the current directory
-
-More info coming soon...
-
-
 Should work well on Windows and Linux. Try the Windows version if you can, it has a nice visualization window!
 
 Windows executables are included, run from a DOS window. Use sc256 if you have a Haswell or later CPU or sc128 if not.
