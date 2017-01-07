@@ -34,3 +34,5 @@ will generate database files such as "32_bits_strict_subset_0091_of_0100.txt". T
 Note that it is normal for subset number 2 to contain no strict still lifes, only pseudo still lifes, so the corresponding database file will be empty.
 
 The memory requirements of the program are very low, it doesn't need to keep track of which still lifes it has encountered so far, so there's no reason why a search can't keep running for weeks on end.
+
+More information is available in this forum thread: http://www.conwaylife.com/forums/viewtopic.php?f=9&t=44&start=50#p38810
