@@ -946,10 +946,10 @@ static __not_inline void print_search_subset_division_table (s64 *op_cnt_at_new_
 			op_cnt_at_new_tag [first_tag_in_subset [subset_cnt]] - op_cnt_at_new_tag [first_tag_in_subset [subset_cnt - 1]]);
 }
 
-static __not_inline void do_search (s32 min_wanted_bit_cnt, s32 max_wanted_bit_cnt, s32 search_subset, int write_files, int report_complex_pseudo_still_lifes, int build_subset_division_table, GridVisualization *grid_visualization)
+static __not_inline int do_search (s32 min_wanted_bit_cnt, s32 max_wanted_bit_cnt, s32 search_subset, int write_files, int report_complex_pseudo_still_lifes, int build_subset_division_table, GridVisualization *grid_visualization)
 {
 	// This is used to prepare tables for dividing the search space into equal subsets when this mode is selected
-	static s64 op_cnt_at_new_tag [TAG_CNT_AT_TAG_SIZE_9 + 1];
+	s64 op_cnt_at_new_tag [TAG_CNT_AT_TAG_SIZE_9 + 1];
 	
 	SearchState st;
 	
@@ -1002,7 +1002,7 @@ static __not_inline void do_search (s32 min_wanted_bit_cnt, s32 max_wanted_bit_c
 		{
 			close_files (&st);
 			fprintf (stderr, "Failed to open output files\n");
-			return;
+			return FALSE;
 		}
 	
 	add_open_cells (&st);
@@ -1130,6 +1130,8 @@ static __not_inline void do_search (s32 min_wanted_bit_cnt, s32 max_wanted_bit_c
 		printf ("Strict still lifes: %10" PRIu64 "\n", st.strict_sol_cnt [on_cnt]);
 		printf ("Pseudo still lifes: %10" PRIu64 "\n", st.pseudo_sol_cnt [on_cnt]);
 	}
+	
+	return TRUE;
 }
 
 static __not_inline int main_do (int argc, const char *const *argv)
@@ -1185,9 +1187,6 @@ static __not_inline int main_do (int argc, const char *const *argv)
 		fprintf (stderr, "<selected_subset> must be between 0 and %d\n", SELECTED_SEARCH_SUBSETS - 1);
 		return FALSE;
 	}
-	
-	printf ("subset = %d, min = %d\n", selected_subset, cl_min_wanted_bit_cnt);
-	
 	if (selected_subset >= 0 && cl_min_wanted_bit_cnt < TAG_SIZE + 10)
 	{
 		fprintf (stderr, "Searching for a subset is not supported if <min on cells> is lower than %d\n", TAG_SIZE + 10);
@@ -1201,12 +1200,12 @@ static __not_inline int main_do (int argc, const char *const *argv)
 	GridVisualization gv;
 	GridVisualization_create (&gv, "Still life search", &visualization_area, 8, 2);
 	
-	do_search (cl_min_wanted_bit_cnt, cl_max_wanted_bit_cnt, selected_subset, cl_write_files, TRUE, FALSE, &gv);
+	int success = do_search (cl_min_wanted_bit_cnt, cl_max_wanted_bit_cnt, selected_subset, cl_write_files, TRUE, FALSE, &gv);
 	
 	GridVisualization_close (&gv);
 	
 	PerfTimer_report ();
-	return TRUE;
+	return success;
 }
 
 int main (int argc, const char *const *argv)
