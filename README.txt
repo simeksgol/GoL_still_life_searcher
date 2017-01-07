@@ -32,3 +32,5 @@ There is currently a fixed set of 100 subsets that require about an equal amount
 will generate database files such as "32_bits_strict_subset_0091_of_0100.txt". The running time for searching one subset to 32 bits should be around a day. You can of course start one search for each CPU core of your computer in different subsets at the same time.
 
 Note that it is normal for subset number 2 to contain no strict still lifes, only pseudo still lifes, so the corresponding database file will be empty.
+
+The memory requirements of the program are very low, it doesn't need to keep track of which still lifes it has encountered so far, so there's no reason why a search can't keep running for weeks on end.
