@@ -965,7 +965,7 @@ static __not_inline int do_search (s32 min_wanted_bit_cnt, s32 max_wanted_bit_cn
 	if (st.search_subset < 0)
 	{
 		st.wanted_tag_on = 0;
-		st.wanted_tag_off = TAG_CNT_AT_TAG_SIZE_9;
+		st.wanted_tag_off = -1;
 	}
 	else
 	{
@@ -1072,7 +1072,7 @@ static __not_inline int do_search (s32 min_wanted_bit_cnt, s32 max_wanted_bit_cn
 			st.new_on_cells_defined = FALSE;
 		}
 		
-		if (st.cur_tag_ix >= st.wanted_tag_off)
+		if (st.wanted_tag_off != -1 && st.cur_tag_ix >= st.wanted_tag_off)
 			break;
 		
 		if (st.on_cnt < TAG_SIZE || st.cur_tag_ix >= st.wanted_tag_on)
