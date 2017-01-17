@@ -36,3 +36,12 @@ Note that it is normal for subset number 2 to contain no strict still lifes, onl
 The memory requirements of the program are very low, it doesn't need to keep track of which still lifes it has encountered so far, so there's no reason why a search can't keep running for weeks on end.
 
 More information is available in this forum thread: http://www.conwaylife.com/forums/viewtopic.php?f=9&t=44&start=50#p38810
+
+
+Also included a post processing program that reads a series of numbered text files and outputs them to either a single file or to a series of numbered output files with a predefined number of text lines in each.
+
+Use mkpp to compile this into pp on Linux
+
+USAGE: pp <in template> <first number> <last number>
+          <out template> [<lines per out file>]
+where a template could be "28_bits_strict_subset_####_of_1024.txt"
