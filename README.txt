@@ -45,3 +45,5 @@ Use mkpp to compile this into pp on Linux
 USAGE: pp <in template> <first number> <last number>
           <out template> [<lines per out file>]
 where a template could be "28_bits_strict_subset_####_of_1024.txt"
+
+This will also print the total number of processed lines to the console
