@@ -1,1 +1,1 @@
-gcc postprocess.c -lm -o pp -std=c99 -O3 -Wall -Werror -fmax-errors=2 -Wno-unused-function -Werror -fno-tree-loop-distribute-patterns -march=native
+gcc postprocess.c -lm -o pp -std=c99 -O3 -Wall -Wextra -Werror -fmax-errors=2 -Wno-unused-function -fno-tree-loop-distribute-patterns -march=native

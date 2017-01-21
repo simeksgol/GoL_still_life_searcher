@@ -384,7 +384,7 @@ static __force_inline s32 distance_from_start_cell (s32 x, s32 y)
 }
 
 // Find the on-cell in the grid that has the closest geometric distance to the first on-cell
-static __force_inline int find_closest (SearchState *st, const GoLGrid *obj_gg, s32 *closest_x, s32 *closest_y)
+static __force_inline int find_closest (const GoLGrid *obj_gg, s32 *closest_x, s32 *closest_y)
 {
 	int first = TRUE;
 	s32 cell_x = 0;
@@ -463,7 +463,7 @@ static __not_inline int find_cell_to_define (SearchState *st, s32 *cell_to_defin
 	GoLGrid_and_64_wide (not_stable_bleed_8, st->undef_cells, not_stable_undef_neighbours);
 	
 	if (!GoLGrid_is_empty (not_stable_undef_neighbours))
-		return find_closest (st, not_stable_undef_neighbours, cell_to_define_x, cell_to_define_y);
+		return find_closest (not_stable_undef_neighbours, cell_to_define_x, cell_to_define_y);
 	
 	// Then we prioritize cells in the neighbourhood of cells already defined to on
 	// Finally we allow cells up to a (2, 1) distance from cells already defined to on
@@ -476,26 +476,26 @@ static __not_inline int find_cell_to_define (SearchState *st, s32 *cell_to_defin
 		GoLGrid_and_64_wide (bleed_8, st->undef_cells, undef_in_bleed_8);
 		
 		if (!GoLGrid_is_empty (undef_in_bleed_8))
-			return find_closest (st, undef_in_bleed_8, cell_to_define_x, cell_to_define_y);
+			return find_closest (undef_in_bleed_8, cell_to_define_x, cell_to_define_y);
 		
 		GoLGrid_bleed_4_64_wide (bleed_8, bleed_20);
 		GoLGrid_and_64_wide (bleed_20, st->undef_cells, undef_in_bleed_20);
 		
 		if (!GoLGrid_is_empty (undef_in_bleed_20))
-			return find_closest (st, undef_in_bleed_20, cell_to_define_x, cell_to_define_y);
+			return find_closest (undef_in_bleed_20, cell_to_define_x, cell_to_define_y);
 	}
 	
 	GoLGrid_bleed_8_64_wide (st->on_cells, bleed_8);
 	GoLGrid_and_64_wide (bleed_8, st->undef_cells, undef_in_bleed_8);
 	
 	if (!GoLGrid_is_empty (undef_in_bleed_8))
-		return find_closest (st, undef_in_bleed_8, cell_to_define_x, cell_to_define_y);
+		return find_closest (undef_in_bleed_8, cell_to_define_x, cell_to_define_y);
 	
 	GoLGrid_bleed_4_64_wide (bleed_8, bleed_20);
 	GoLGrid_and_64_wide (bleed_20, st->undef_cells, undef_in_bleed_20);
 	
 	if (!GoLGrid_is_empty (undef_in_bleed_20))
-		return find_closest (st, undef_in_bleed_20, cell_to_define_x, cell_to_define_y);
+		return find_closest (undef_in_bleed_20, cell_to_define_x, cell_to_define_y);
 	
 	return FALSE;
 }
